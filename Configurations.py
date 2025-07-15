@@ -13,7 +13,7 @@ bloodPressure           = arange(0, 221, 1)
 cholesterol             = arange(100, 251, 1)
 bloodSugar              = arange(0, 121, 1)
 highDensityLipoprotein  = arange(0, 71, 1)
-loweDensityLipoprotein  = arange(0, 191, 1)
+lowDensityLipoprotein  = arange(0, 191, 1)
 
 # Output
 risk = arange(0, 46, 1)
