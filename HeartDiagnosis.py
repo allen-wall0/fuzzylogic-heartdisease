@@ -7,7 +7,7 @@ import skfuzzy as fuzz
 # Import the universe of discourse variables directly from Configurations
 from Configurations import (
     age, bloodPressure, cholesterol, bloodSugar,
-    highDensityLipoprotein, loweDensityLipoprotein, risk
+    highDensityLipoprotein, lowDensityLipoprotein, risk
 )
 
 # Import all RuleBase classes
@@ -15,7 +15,7 @@ from RuleBase.Age import Age
 from RuleBase.BloodPressure import BloodPressure
 from RuleBase.Cholesterol import Cholesterol
 from RuleBase.BloodSugar import BloodSugar
-from RuleBase.LoweDensityLipoprotein import LoweDensityLipoprotein
+from RuleBase.LowDensityLipoprotein import LowDensityLipoprotein
 from RuleBase.HighDensityLipoprotein import HighDensityLipoprotein
 from RuleBase.RiskRule import RiskRule
 from Risk import Risk
@@ -45,7 +45,7 @@ class HeartDiagnosisGUI:
         self.create_widgets()
 
     def create_widgets(self):
-        tk.Label(self.master, text="Welcome In Fuzzy Logic Hospital ❤❤", font=("Arial", 14)).pack(pady=10)
+        tk.Label(self.master, text="Heart Disease Diagnosis", font=("Arial", 14)).pack(pady=10)
         tk.Label(self.master, text="Enter health data for Heart Disease Risk Calculation").pack()
 
         # Age Input
@@ -69,7 +69,7 @@ class HeartDiagnosisGUI:
         self.bs_entry.pack()
 
         # LDL Input
-        tk.Label(self.master, text=f"Enter Lowe Density Lipoprotein (mg/dL): Range {LDL_RANGE[0]}-{LDL_RANGE[1]}").pack(pady=5)
+        tk.Label(self.master, text=f"Enter Low Density Lipoprotein (mg/dL): Range {LDL_RANGE[0]}-{LDL_RANGE[1]}").pack(pady=5)
         self.ldl_entry = tk.Entry(self.master)
         self.ldl_entry.pack()
 
@@ -100,7 +100,7 @@ class HeartDiagnosisGUI:
         self.userBloodPressure = self.validate_input(self.bp_entry, *BP_RANGE, "Blood Pressure")
         self.userCholesterol = self.validate_input(self.cholesterol_entry, *CHOLESTEROL_RANGE, "Cholesterol")
         self.userBloodSugar = self.validate_input(self.bs_entry, *BS_RANGE, "Blood Sugar")
-        self.userLDL = self.validate_input(self.ldl_entry, *LDL_RANGE, "Lowe Density Lipoprotein")
+        self.userLDL = self.validate_input(self.ldl_entry, *LDL_RANGE, "Low Density Lipoprotein")
         self.userHDL = self.validate_input(self.hdl_entry, *HDL_RANGE, "High Density Lipoprotein")
 
         if all(val is not None for val in [self.userAge, self.userBloodPressure, self.userCholesterol,
@@ -130,8 +130,8 @@ class HeartDiagnosisGUI:
         bloodSugarRule.triangularMembership() # Calls triangular membership
         bloodSugarRule.membershipDegrees(self.userBloodSugar)
 
-        # Initialize and fuzzify Lowe Density Lipoprotein
-        ldlRule = LoweDensityLipoprotein()
+        # Initialize and fuzzify Low Density Lipoprotein
+        ldlRule = LowDensityLipoprotein()
         ldlRule.triangularMembership() # Calls triangular membership
         ldlRule.membershipDegrees(self.userLDL)
 
@@ -213,11 +213,11 @@ class HeartDiagnosisGUI:
         axes[1, 0].legend()
         axes[1, 0].grid(True, alpha=0.3)
 
-        # Lowe Density Lipoprotein Membership Function Plot
-        axes[1, 1].plot(loweDensityLipoprotein, ldlRule.ldlNormal, 'b', linewidth=1.5, label='Normal')
-        axes[1, 1].plot(loweDensityLipoprotein, ldlRule.ldlLimit, 'g', linewidth=1.5, label='Limit')
-        axes[1, 1].plot(loweDensityLipoprotein, ldlRule.ldlHigh, 'r', linewidth=1.5, label='High')
-        axes[1, 1].plot(loweDensityLipoprotein, ldlRule.ldlVeryHigh, 'm', linewidth=1.5, label='Very High')
+        # Low Density Lipoprotein Membership Function Plot
+        axes[1, 1].plot(lowDensityLipoprotein, ldlRule.ldlNormal, 'b', linewidth=1.5, label='Normal')
+        axes[1, 1].plot(lowDensityLipoprotein, ldlRule.ldlLimit, 'g', linewidth=1.5, label='Limit')
+        axes[1, 1].plot(lowDensityLipoprotein, ldlRule.ldlHigh, 'r', linewidth=1.5, label='High')
+        axes[1, 1].plot(lowDensityLipoprotein, ldlRule.ldlVeryHigh, 'm', linewidth=1.5, label='Very High')
         axes[1, 1].axvline(x=self.userLDL, color='k', linestyle='--', alpha=0.7, label=f'Input: {self.userLDL}')
         axes[1, 1].set_title('LDL Rule Membership Function')
         axes[1, 1].set_ylabel('Membership degree')
